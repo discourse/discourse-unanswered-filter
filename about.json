@@ -1,6 +1,6 @@
 {
   "name": "Unanswered Filter",
   "about_url": "https://meta.discourse.org/t/unanswered-filter/126257",
-  "license_url": "https://github.com/tshenry/discourse-post-badges/blob/master/LICENSE",
+  "license_url": "https://github.com/tshenry/discourse-unanswered-filter/blob/master/LICENSE",
   "component": true
 }
