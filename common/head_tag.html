@@ -1,17 +1,20 @@
-<script type="text/discourse-plugin" version="0.8.18">
-  let currentLocaleTranslation = I18n.translations[I18n.currentLocale()].js;
-  if (currentLocaleTranslation.filters) {
-    currentLocaleTranslation.filters.unanswered = {
-      title: I18n.t(themePrefix("unanswered.title")),
-      help: I18n.t(themePrefix("unanswered.help"))
-    };
-  } else {
-    I18n.translations.en.js.filters.unanswered = {
-      title: I18n.t(themePrefix("unanswered.title")),
-      help: I18n.t(themePrefix("unanswered.help"))
-    };
-  }
-
+<script type="text/discourse-plugin" version="0.8">
+  let exclusionList = settings.exclusions.split("|");
+  api.addNavigationBarItem({
+    name: "unanswered",
+    displayName: I18n.t(themePrefix("unanswered.title")),
+    title: I18n.t(themePrefix("unanswered.help")),
+    customFilter: (category, args, router) => {
+      return exclusionList.indexOf(router.currentURL) < 0;
+    },
+    customHref: function(category, args, router) {
+      let routeName =
+        args.filterMode === "categories"
+          ? "discovery.latest"
+          : router.currentRouteName;
+      return router.urlFor(routeName, { queryParams: { max_posts: 1 } });
+    }
+  });
   api.modifyClass("component:navigation-item", {
     active: Ember.computed("contentFilterMode", "filterMode", function() {
       let contentFilterMode = this.get("content").get("filterMode");
@@ -24,57 +27,5 @@
         return this._super(contentFilterMode, this.get("filterMode"));
       }
     })
-  });
-
-  api.modifyClass("controller:discovery/topics", {
-    resetParams: function() {
-      this.setProperties({ max_posts: null });
-      this.setProperties({ tags: null });
-      this._super();
-    }
-  });
-
-  Discourse.ExternalNavItem = Discourse.NavItem.extend({
-    href: function() {
-      return this.get("href");
-    }.property("href")
-  });
-
-  Discourse.NavItem.reopenClass({
-    buildList: function(category, args) {
-      let list = this._super(category, args),
-        tag = args.tagId,
-        unansweredHref;
-
-      if (!category) {
-        unansweredHref = tag
-          ? "/latest/?max_posts=1&tags=" + tag
-          : "/latest/?max_posts=1";
-      } else if (!category.parentCategory) {
-        unansweredHref = tag
-          ? "/c/" + category.slug + "?max_posts=1&tags=" + tag
-          : "/c/" + category.slug + "?max_posts=1";
-      } else {
-        unansweredHref = tag
-          ? "/c/" +
-            category.parentCategory.slug +
-            "/" +
-            category.slug +
-            "?max_posts=1&tags=" +
-            tag
-          : "/c/" +
-            category.parentCategory.slug +
-            "/" +
-            category.slug +
-            "?max_posts=1";
-      }
-      list.push(
-        Discourse.ExternalNavItem.create({
-          href: unansweredHref,
-          name: "unanswered"
-        })
-      );
-      return list;
-    }
   });
 </script>
