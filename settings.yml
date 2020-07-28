@@ -1,15 +1,15 @@
+---
 exclusions:
   type: list
-  default: "/|/top"
+  list_type: simple
+  default: ""
   description:
-    en: 'To add a new relative path:
-        <ol>
-          <li>Select the dropdown</li>
-          <li>Enter the relative path</li>
-          <li>Select the create option</li>
-          <li>Select the square checkmark button to save</li>
-        </ol>
-        Relative paths added to this setting will not display the Unanswered 
-        filter link. Examples in this setting are <b>/</b> for the home page 
-        and <b>/top</b> for the top topics page. Be sure to adjust to your 
-        liking.'
+    en: 'Relative paths added to this setting will not display the Unanswered 
+        filter. For example, <b>/</b> would be used for the home page and
+        <b>/top</b> for the top topics page. Be sure to adjust to your liking.'
+restrict_to_groups:
+  type: list
+  list_type: group
+  default: ""
+  description:
+    en: 'Only display the filter for these groups'

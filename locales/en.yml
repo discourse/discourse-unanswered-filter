@@ -1,4 +1,3 @@
 en: 
-  unanswered: 
-    title: "Unanswered"
-    help: "Topics that have not been answered"
+  all_topics_label: "all topics"
+  unanswered_label: "unanswered"
