@@ -3,7 +3,6 @@ import discourseComputed from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
 import getURL from "discourse-common/lib/get-url";
 import { inject as service } from "@ember/service";
-import { computed } from "@ember/object";
 
 export const ALL_TOPICS_ID = "all_topics";
 export const UNANSWERED_TOPICS_ID = "unanswered";
@@ -17,14 +16,11 @@ export default ComboBoxComponent.extend({
     allowAny: false,
     caretDownIcon: "caret-right",
     caretUpIcon: "caret-down",
-    fullWidthOnMobile: false,
-    filterable: false,
-    autoInsertNoneItem: false
   },
  
-  @discourseComputed("router.currentRoute")
-  isVisible(currentRoute) {
-    if (currentRoute.localName !== "categories") {
+  @discourseComputed("router.currentRoute.localName")
+  isVisible(localName) {
+    if (localName !== "categories") {
       return true;
     }
     return false;
@@ -32,12 +28,28 @@ export default ComboBoxComponent.extend({
 
   @discourseComputed("router.currentURL")
   allTopicsUrl(currentURL) {
-    return currentURL.replace(/[?&]max_posts=1/g, "");
+    // Below are the three main query param senarios
+    //  /latest?max_posts=1
+    //  /latest?max_posts=1&order=views
+    //  /latest?ascending=true&max_posts=1&order=views
+
+    let replacedURL = currentURL.replace(/[?&]max_posts=1/g, "");
+
+    // Result
+    //  /latest
+    //  /latest&order=views  <-- still need to change & to ?
+    //  /latest?ascending=true&order=views
+
+    if (replacedURL.indexOf("?") < 0) {
+      replacedURL = replacedURL.replace("&", "?")
+    }
+
+    return replacedURL;
   },
 
   @discourseComputed("router.currentRoute.queryParams")
   unansweredTopicsUrl(queryParams) {
-    if(Object.keys(queryParams).length > 0) {
+    if (Object.keys(queryParams).length > 0) {
       return getURL(`${this.router.currentURL}&max_posts=1`);
     } else {
       return getURL(`${this.router.currentURL}?max_posts=1`);
@@ -53,16 +65,14 @@ export default ComboBoxComponent.extend({
     }
   },
 
-  content: computed("shortcuts.[]", function() {
-    return [
-      { id: ALL_TOPICS_ID, name: I18n.t(themePrefix("all_topics_label")) }, 
-      { id: UNANSWERED_TOPICS_ID, name: I18n.t(themePrefix("unanswered_label")) }
-    ];
-  }),
+  content: [
+    { id: ALL_TOPICS_ID, name: I18n.t(themePrefix("all_topics_label")) },
+    { id: UNANSWERED_TOPICS_ID, name: I18n.t(themePrefix("unanswered_label")) }
+  ],
 
   actions: {
     onChange(unansweredId, value) {
-      if(unansweredId === UNANSWERED_TOPICS_ID) {
+      if (unansweredId === UNANSWERED_TOPICS_ID) {
         DiscourseURL.routeTo(getURL(this.unansweredTopicsUrl))
       } else {
         DiscourseURL.routeTo(getURL(this.allTopicsUrl))
