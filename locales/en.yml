@@ -1,4 +1,5 @@
-en: 
-  unanswered: 
-    title: "Unanswered"
-    help: "Topics that have not been answered"
+en:
+  topic_answered_filter:
+    all: "any status"
+    unanswered: "unanswered"
+    answered: "answered"

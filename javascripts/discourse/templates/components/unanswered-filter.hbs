@@ -1,0 +1,9 @@
+{{#if shouldRender}}
+  {{combo-box
+    content=statuses
+    value=queryStatus
+    valueAttribute="value"
+    onSelect=(action "changeStatus")
+    class="topic-unanswered-filter-dropdown"
+  }}
+{{/if}}

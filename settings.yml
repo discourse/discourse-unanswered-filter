@@ -2,14 +2,14 @@ exclusions:
   type: list
   default: "/|/top"
   description:
-    en: 'To add a new relative path:
-        <ol>
-          <li>Select the dropdown</li>
-          <li>Enter the relative path</li>
-          <li>Select the create option</li>
-          <li>Select the square checkmark button to save</li>
-        </ol>
-        Relative paths added to this setting will not display the Unanswered 
-        filter link. Examples in this setting are <b>/</b> for the home page 
-        and <b>/top</b> for the top topics page. Be sure to adjust to your 
-        liking.'
+    en: "To add a new relative path:
+      <ol>
+      <li>Select the dropdown</li>
+      <li>Enter the relative path</li>
+      <li>Select the create option</li>
+      <li>Select the square checkmark button to save</li>
+      </ol>
+      Relative paths added to this setting will not display the Unanswered
+      filter link. Examples in this setting are <b>/</b> for the home page
+      and <b>/top</b> for the top topics page. Be sure to adjust to your
+      liking."
