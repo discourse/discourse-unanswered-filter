@@ -13,3 +13,7 @@ exclusions:
       filter link. Examples in this setting are <b>/</b> for the home page
       and <b>/top</b> for the top topics page. Be sure to adjust to your
       liking."
+
+show_only_for_staff:
+  default: false
+  description: when enabled, only show the filter to admins and moderators

@@ -1,10 +1,9 @@
 import { action } from "@ember/object";
-
 import Component from "@ember/component";
-import discourseComputed from "discourse-common/utils/decorators";
-import { inject as service } from "@ember/service";
 import { computed } from "@ember/object";
+import discourseComputed from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
+import { inject as service } from "@ember/service";
 
 export default Component.extend({
   router: service(),
@@ -33,6 +32,14 @@ export default Component.extend({
     if (currentRouteName != "discovery.categories") {
       return !exclusions.includes(currentURL);
     }
+  },
+
+  @discourseComputed("currentUser")
+  staffOnly(currentUser) {
+    const notStaff =
+      (!currentUser || (currentUser && !currentUser.staff)) &&
+      settings.show_only_for_staff;
+    return notStaff;
   },
 
   @action
