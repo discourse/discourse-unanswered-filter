@@ -1,9 +1,9 @@
-import { action } from "@ember/object";
+import { action, computed } from "@ember/object";
 import Component from "@ember/component";
-import { computed } from "@ember/object";
 import discourseComputed from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
 import { inject as service } from "@ember/service";
+import I18n from "I18n";
 
 export default Component.extend({
   router: service(),
@@ -15,7 +15,8 @@ export default Component.extend({
     };
   }),
 
-  queryStatus: computed(function () {
+  @computed
+  queryStatus() {
     let queryStrings = window.location.search;
     if (queryStrings.match(/min_posts=2/)) {
       return "answered";
@@ -24,12 +25,12 @@ export default Component.extend({
     } else {
       return "all";
     }
-  }),
+  },
 
   @discourseComputed("router.currentRouteName", "router.currentURL")
   shouldRender(currentRouteName, currentURL) {
     let exclusions = settings.exclusions.split("|");
-    if (currentRouteName != "discovery.categories") {
+    if (currentRouteName !== "discovery.categories") {
       return !exclusions.includes(currentURL);
     }
   },
