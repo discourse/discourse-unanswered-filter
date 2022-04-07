@@ -1,4 +1,4 @@
-import { action, computed } from "@ember/object";
+import { action } from "@ember/object";
 import Component from "@ember/component";
 import discourseComputed from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
@@ -15,7 +15,7 @@ export default Component.extend({
     };
   }),
 
-  @computed
+  @discourseComputed
   queryStatus() {
     let queryStrings = window.location.search;
     if (queryStrings.match(/min_posts=2/)) {
