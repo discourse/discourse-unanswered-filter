@@ -13,6 +13,7 @@ export default class UnansweredFilter extends Component {
     name: I18n.t(themePrefix(`topic_answered_filter.${status}`)),
     value: status,
   }));
+
   statusToQueryParam = {
     all: "",
     answered: "min_posts=2",

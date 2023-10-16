@@ -29,8 +29,8 @@ acceptance("Unanswered Filter - logged out", function () {
 
     assert.ok(
       query(".topic-unanswered-filter-dropdown .name").innerText.includes(
-        "answered",
-      ),
+        "answered"
+      )
     );
     stub.restore();
   });
@@ -46,8 +46,8 @@ acceptance("Unanswered Filter - logged out", function () {
 
     assert.ok(
       query(".topic-unanswered-filter-dropdown .name").innerText.includes(
-        "unanswered",
-      ),
+        "unanswered"
+      )
     );
     stub.restore();
   });
