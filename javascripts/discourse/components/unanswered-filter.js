@@ -30,7 +30,7 @@ export default class UnansweredFilter extends Component {
       Object.keys(this.statusToQueryParam).find((key) =>
         this.statusToQueryParam[key]
           ? queryStrings.includes(this.statusToQueryParam[key])
-          : false,
+          : false
       ) || "all";
   }
 
@@ -39,7 +39,7 @@ export default class UnansweredFilter extends Component {
       ? queryStrings.substring(1).split("&")
       : [];
     return params.filter(
-      (param) => !Object.values(this.statusToQueryParam).includes(param),
+      (param) => !Object.values(this.statusToQueryParam).includes(param)
     );
   }
 
