@@ -3,3 +3,9 @@ en:
     all: "any status"
     unanswered: "unanswered"
     answered: "answered"
+  unanswered:
+    title: "Unanswered"
+    help: "Topics that have not been answered"
+  theme_metadata:
+    settings:
+      limit_to_groups: only show the filter for members of these groups

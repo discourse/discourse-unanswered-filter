@@ -1,15 +1,11 @@
-import {
-  acceptance,
-  query,
-  updateCurrentUser,
-} from "discourse/tests/helpers/qunit-helpers";
+import { acceptance, query } from "discourse/tests/helpers/qunit-helpers";
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import sinon from "sinon";
 import UnansweredFilter from "../../discourse/components/unanswered-filter";
 
-acceptance("Unanswered Filter - logged out", function () {
-  settings.show_only_for_staff = false;
+acceptance("Unanswered Filter, dropdown mode - logged out", function () {
+  settings.filter_mode = "dropdown";
 
   test("Unanswered filter appears", async function (assert) {
     await visit("/latest");
@@ -62,7 +58,7 @@ acceptance("Unanswered Filter - logged out", function () {
   });
 
   test("Filter does not appear for anon when the staff setting is enabled", async function (assert) {
-    settings.show_only_for_staff = true;
+    settings.limit_to_groups = "staff";
 
     await visit("/latest");
     assert
@@ -71,16 +67,13 @@ acceptance("Unanswered Filter - logged out", function () {
   });
 });
 
-acceptance("Unanswered Filter - logged in", function (needs) {
-  needs.user();
+acceptance("Unanswered Filter, dropdown mode - logged in", function (needs) {
+  settings.filter_mode = "dropdown";
+
+  needs.user({ staff: true });
+  settings.limit_to_groups = "staff";
 
   test("Filter appears for staff when the staff setting is enabled", async function (assert) {
-    settings.show_only_for_staff = true;
-
-    updateCurrentUser({
-      staff: true,
-    });
-
     await visit("/latest");
     assert
       .dom(".topic-unanswered-filter-dropdown")

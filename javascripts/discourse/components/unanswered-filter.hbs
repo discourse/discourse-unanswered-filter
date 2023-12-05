@@ -1,11 +1,9 @@
-{{#unless this.staffOnly}}
-  {{#if this.shouldRender}}
-    {{combo-box
-      content=this.statuses
-      value=this.currentStatus
-      valueAttribute="value"
-      onSelect=(action "changeStatus")
-      class="topic-unanswered-filter-dropdown"
-    }}
-  {{/if}}
-{{/unless}}
+{{#if this.shouldRender}}
+  {{combo-box
+    content=this.statuses
+    value=this.currentStatus
+    valueAttribute="value"
+    onSelect=(action "changeStatus")
+    class="topic-unanswered-filter-dropdown"
+  }}
+{{/if}}
