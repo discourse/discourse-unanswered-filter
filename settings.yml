@@ -22,6 +22,7 @@ limit_to_groups:
 filter_mode:
   type: enum
   default: "dropdown"
+  refresh: true
   choices:
     - "dropdown"
     - "link"

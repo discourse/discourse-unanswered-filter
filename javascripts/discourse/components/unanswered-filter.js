@@ -3,8 +3,11 @@ import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import DiscourseURL from "discourse/lib/url";
 import { inject as service } from "@ember/service";
+import { tagName } from "@ember-decorators/component";
+
 import I18n from "I18n";
 
+@tagName("")
 export default class UnansweredFilter extends Component {
   @service router;
   @service currentUser;
@@ -47,6 +50,8 @@ export default class UnansweredFilter extends Component {
     const groupInclusions = settings.limit_to_groups
       .split("|")
       .map((id) => parseInt(id, 10));
+
+    console.log(settings.limit_to_groups);
 
     return (
       this.currentUser?.groups?.some((group) =>
