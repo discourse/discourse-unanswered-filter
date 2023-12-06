@@ -33,7 +33,7 @@ export default class UnansweredFilter extends Component {
       Object.keys(this.statusToQueryParam).find((key) =>
         this.statusToQueryParam[key]
           ? queryStrings.includes(this.statusToQueryParam[key])
-          : false
+          : false,
       ) || "all";
   }
 
@@ -42,7 +42,7 @@ export default class UnansweredFilter extends Component {
       ? queryStrings.substring(1).split("&")
       : [];
     return params.filter(
-      (param) => !Object.values(this.statusToQueryParam).includes(param)
+      (param) => !Object.values(this.statusToQueryParam).includes(param),
     );
   }
 
@@ -51,11 +51,9 @@ export default class UnansweredFilter extends Component {
       .split("|")
       .map((id) => parseInt(id, 10));
 
-    console.log(settings.limit_to_groups);
-
     return (
       this.currentUser?.groups?.some((group) =>
-        groupInclusions.includes(group.id)
+        groupInclusions.includes(group.id),
       ) ||
       groupInclusions.includes(0) ||
       !settings.limit_to_groups
