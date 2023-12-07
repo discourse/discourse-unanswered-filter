@@ -20,3 +20,18 @@ acceptance("Unanswered Filter, link mode - logged out", function () {
     assert.dom(".nav-item_unanswered").doesNotExist("Unanswered filter exists");
   });
 });
+
+acceptance("Unanswered Filter, link mode - logged in", function (needs) {
+  settings.filter_mode = "link";
+  needs.user({ admin: true });
+
+  test("Unanswered filter link is shown to set group", async function (assert) {
+    settings.limit_to_groups = "1";
+
+    await visit("/c/2");
+
+    assert
+      .dom(".nav-item_unanswered")
+      .exists("link appears for staff user when group is configured");
+  });
+});
