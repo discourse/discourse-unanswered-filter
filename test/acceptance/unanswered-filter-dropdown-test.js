@@ -52,15 +52,17 @@ acceptance("Unanswered Filter, dropdown mode - logged out", function () {
     settings.exclusions = "/top";
 
     await visit("/top");
+
     assert
       .dom(".topic-unanswered-filter-dropdown")
       .doesNotExist("Unanswered filter does not appear");
   });
 
   test("Filter does not appear for anon when the staff setting is enabled", async function (assert) {
-    settings.limit_to_groups = "staff";
+    settings.limit_to_groups = "1";
 
     await visit("/latest");
+
     assert
       .dom(".topic-unanswered-filter-dropdown")
       .doesNotExist("Unanswered filter does not appear");
@@ -69,12 +71,13 @@ acceptance("Unanswered Filter, dropdown mode - logged out", function () {
 
 acceptance("Unanswered Filter, dropdown mode - logged in", function (needs) {
   settings.filter_mode = "dropdown";
-
-  needs.user({ staff: true });
-  settings.limit_to_groups = "staff";
+  needs.user({ admin: true });
 
   test("Filter appears for staff when the staff setting is enabled", async function (assert) {
+    settings.limit_to_groups = "1";
+
     await visit("/latest");
+
     assert
       .dom(".topic-unanswered-filter-dropdown")
       .exists("Unanswered filter appears only for staff");

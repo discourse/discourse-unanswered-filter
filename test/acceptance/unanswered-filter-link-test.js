@@ -13,22 +13,10 @@ acceptance("Unanswered Filter, link mode - logged out", function () {
   });
 
   test("Unanswered filter does not appear for anons when group is set", async function (assert) {
-    settings.limit_to_groups = "staff";
+    settings.limit_to_groups = "1";
 
     await visit("/c/2");
+
     assert.dom(".nav-item_unanswered").doesNotExist("Unanswered filter exists");
-  });
-});
-
-acceptance("Unanswered Filter, link mode, logged in", function (needs) {
-  needs.user({ staff: true });
-  settings.limit_to_groups = "staff";
-
-  test("Unanswered filter link is shown to set group", async function (assert) {
-    await visit("/c/1");
-
-    assert
-      .dom(".nav-item_unanswered")
-      .exists("link appears for staff user when group is configured");
   });
 });

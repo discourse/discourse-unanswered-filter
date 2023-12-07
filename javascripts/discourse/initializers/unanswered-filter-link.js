@@ -43,7 +43,6 @@ export default apiInitializer("0.11.1", (api) => {
     },
     forceActive: (category, args) => {
       const queryParams = args.currentRouteQueryParams;
-
       return queryParams && queryParams["max_posts"] === "1";
     },
   });
