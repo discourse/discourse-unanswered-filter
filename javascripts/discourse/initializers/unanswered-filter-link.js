@@ -1,9 +1,8 @@
 import { apiInitializer } from "discourse/lib/api";
 import I18n from "discourse-i18n";
-import { isTesting } from "discourse-common/config/environment";
 
 export default apiInitializer("0.11.1", (api) => {
-  if (settings.filter_mode === "dropdown" && !isTesting()) {
+  if (settings.filter_mode === "dropdown") {
     return;
   }
 
@@ -33,13 +32,11 @@ export default apiInitializer("0.11.1", (api) => {
           ? "discovery.latest"
           : router.currentRouteName;
 
-      let destinationParams = router.currentRoute.queryParams.max_posts
-        ? ""
-        : { max_posts: 1 };
+      const queryParams = router.currentRoute.queryParams.max_posts
+        ? {}
+        : { queryParams: { max_posts: 1 } };
 
-      return router.urlFor(routeName, {
-        queryParams: destinationParams,
-      });
+      return router.urlFor(routeName, queryParams);
     },
     forceActive: (category, args) => {
       const queryParams = args.currentRouteQueryParams;
