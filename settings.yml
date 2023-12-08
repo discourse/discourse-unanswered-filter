@@ -14,6 +14,15 @@ exclusions:
       and <b>/top</b> for the top topics page. Be sure to adjust to your
       liking."
 
-show_only_for_staff:
-  default: false
-  description: when enabled, only show the filter to admins and moderators
+limit_to_groups:
+  default: ""
+  type: list
+  list_type: group
+
+filter_mode:
+  type: enum
+  default: "dropdown"
+  refresh: true
+  choices:
+    - "dropdown"
+    - "link"

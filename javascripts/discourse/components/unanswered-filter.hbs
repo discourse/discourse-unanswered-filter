@@ -1,5 +1,5 @@
-{{#unless this.staffOnly}}
-  {{#if this.shouldRender}}
+{{#if this.shouldRender}}
+  <li>
     {{combo-box
       content=this.statuses
       value=this.currentStatus
@@ -7,5 +7,5 @@
       onSelect=(action "changeStatus")
       class="topic-unanswered-filter-dropdown"
     }}
-  {{/if}}
-{{/unless}}
+  </li>
+{{/if}}

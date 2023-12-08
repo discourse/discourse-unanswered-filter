@@ -3,8 +3,11 @@ import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 import DiscourseURL from "discourse/lib/url";
 import { inject as service } from "@ember/service";
+import { tagName } from "@ember-decorators/component";
+
 import I18n from "I18n";
 
+@tagName("")
 export default class UnansweredFilter extends Component {
   @service router;
   @service currentUser;
@@ -43,18 +46,25 @@ export default class UnansweredFilter extends Component {
     );
   }
 
+  get isGroupMember() {
+    const groupInclusions = settings.limit_to_groups
+      .split("|")
+      .map((id) => parseInt(id, 10));
+
+    return (
+      this.currentUser?.groups?.some((group) =>
+        groupInclusions.includes(group.id)
+      ) ||
+      groupInclusions.includes(0) ||
+      !settings.limit_to_groups
+    );
+  }
+
   get shouldRender() {
     let exclusions = settings.exclusions.split("|");
     if (this.router.currentRouteName !== "discovery.categories") {
-      return !exclusions.includes(this.router.currentURL);
+      return !exclusions.includes(this.router.currentURL) && this.isGroupMember;
     }
-  }
-
-  get staffOnly() {
-    const notStaff =
-      (!this.currentUser || (this.currentUser && !this.currentUser.staff)) &&
-      settings.show_only_for_staff;
-    return notStaff;
   }
 
   @action
