@@ -13,7 +13,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
 
     visit("/c/#{category.id}")
 
-    expect(page).not_to have_css(".nav-item_unanswered")
+    expect(page).to have_no_css(".nav-item_unanswered")
   end
 
   it "anon can see and click the dropdown" do
@@ -56,7 +56,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
 
     visit("/top")
 
-    expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
+    expect(page).to have_no_css(".topic-unanswered-filter-dropdown")
   end
 
   it "anon will not see the dropdown when limit_to_groups setting is set" do
@@ -66,6 +66,6 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
 
     visit("/c/#{category.id}")
 
-    expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
+    expect(page).to have_no_css(".topic-unanswered-filter-dropdown")
   end
 end
