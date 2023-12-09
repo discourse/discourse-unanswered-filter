@@ -1,8 +1,10 @@
 import { apiInitializer } from "discourse/lib/api";
 import I18n from "discourse-i18n";
+import UnansweredFilter from "../components/unanswered-filter";
 
 export default apiInitializer("0.11.1", (api) => {
   if (settings.filter_mode === "dropdown") {
+    api.renderInOutlet("bread-crumbs-right", UnansweredFilter);
     return;
   }
 
