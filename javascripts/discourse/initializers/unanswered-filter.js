@@ -31,16 +31,23 @@ export default apiInitializer("0.11.1", (api) => {
     },
 
     customHref: function (category, args, router) {
-      const routeName =
-        args.filterType === "categories"
-          ? "discovery.latest"
-          : router.currentRouteName;
+      if (category) {
+        if (router.currentRoute.queryParams.max_posts) {
+          return category.url;
+        } else {
+          return `${category.url}?max_posts=1`;
+        }
+      } else {
+        const routeName =
+          args.filterType === "categories"
+            ? "discovery.latest"
+            : router.currentRouteName;
+        const queryParams = router.currentRoute.queryParams.max_posts
+          ? {}
+          : { max_posts: 1 };
 
-      const queryParams = router.currentRoute.queryParams.max_posts
-        ? {}
-        : { queryParams: { max_posts: 1 } };
-
-      return router.urlFor(routeName, queryParams);
+        return router.urlFor(routeName, { queryParams });
+      }
     },
 
     forceActive: (category, args) => {
