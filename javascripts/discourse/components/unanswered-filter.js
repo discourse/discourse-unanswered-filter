@@ -4,7 +4,6 @@ import { tracked } from "@glimmer/tracking";
 import DiscourseURL from "discourse/lib/url";
 import { inject as service } from "@ember/service";
 import { tagName } from "@ember-decorators/component";
-
 import I18n from "I18n";
 
 @tagName("")
