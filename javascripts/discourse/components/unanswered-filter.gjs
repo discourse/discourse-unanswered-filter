@@ -4,6 +4,7 @@ import { tracked } from "@glimmer/tracking";
 import DiscourseURL from "discourse/lib/url";
 import { inject as service } from "@ember/service";
 import I18n from "I18n";
+import ComboBox from "select-kit/components/combo-box";
 
 const STATUS_TO_QUERY_PARAM = {
   all: "",
@@ -71,4 +72,18 @@ export default class UnansweredFilter extends Component {
 
     this.currentStatus = newStatus;
   }
+
+  <template>
+    {{#if this.shouldRender}}
+      <li>
+        <ComboBox
+          @content={{this.statuses}}
+          @value={{this.currentStatus}}
+          @onSelect={{this.changeStatus}}
+          @valueAttribute="value"
+          class="topic-unanswered-filter-dropdown"
+        />
+      </li>
+    {{/if}}
+  </template>
 }
