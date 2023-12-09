@@ -62,10 +62,11 @@ export default class UnansweredFilter extends Component {
   }
 
   get shouldRender() {
-    const exclusions = settings.exclusions.split("|");
-    if (this.router.currentRouteName !== "discovery.categories") {
-      return !exclusions.includes(this.router.currentURL) && this.isGroupMember;
-    }
+    return (
+      this.router.currentRouteName !== "discovery.categories" &&
+      !settings.exclusions.split("|").includes(this.router.currentURL) &&
+      this.isGroupMember
+    );
   }
 
   @action
