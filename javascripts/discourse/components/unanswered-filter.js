@@ -72,11 +72,12 @@ export default class UnansweredFilter extends Component {
   changeStatus(newStatus) {
     const { search, pathname, hash } = window.location;
     const params = this.getFilteredParams(search);
-    newStatus &&
-      newStatus !== "all" &&
-      params.push(this.statusToQueryParam[newStatus]);
-    const queryStrings = params.length ? `?${params.join("&")}` : "";
 
+    if (newStatus && newStatus !== "all") {
+      params.push(this.statusToQueryParam[newStatus]);
+    }
+
+    const queryStrings = params.length ? `?${params.join("&")}` : "";
     DiscourseURL.routeTo(`${pathname}${queryStrings}${hash}`);
 
     this.currentStatus = newStatus;
