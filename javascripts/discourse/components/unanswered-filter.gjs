@@ -2,14 +2,13 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
-import DiscourseURL from "discourse/lib/url";
 import I18n from "I18n";
 import ComboBox from "select-kit/components/combo-box";
 
-const STATUS_TO_QUERY_PARAM = {
-  all: "",
-  answered: "min_posts=2",
-  unanswered: "max_posts=1",
+const STATUS_TO_QUERY_PARAMS = {
+  answered: { min_posts: "2", max_posts: undefined },
+  unanswered: { max_posts: "1", min_posts: undefined },
+  all: { max_posts: undefined, min_posts: undefined },
 };
 
 export default class UnansweredFilter extends Component {
@@ -21,13 +20,17 @@ export default class UnansweredFilter extends Component {
     value: status,
   }));
 
-  @tracked
-  currentStatus =
-    Object.keys(STATUS_TO_QUERY_PARAM).find(
-      (key) =>
-        STATUS_TO_QUERY_PARAM[key] &&
-        window.location.search.includes(STATUS_TO_QUERY_PARAM[key])
-    ) || "all";
+  get currentStatus() {
+    const { queryParams } = this.router.currentRoute;
+    const includesParams = (a, b) =>
+      Object.entries(b).every(([k, v]) => a[k] === v);
+
+    for (const [key, value] of Object.entries(STATUS_TO_QUERY_PARAMS)) {
+      if (includesParams(queryParams, value)) {
+        return key;
+      }
+    }
+  }
 
   get isGroupMember() {
     const groupInclusions = settings.limit_to_groups
@@ -53,21 +56,9 @@ export default class UnansweredFilter extends Component {
 
   @action
   changeStatus(newStatus) {
-    const { search, pathname, hash } = window.location;
-
-    let params = search.startsWith("?") ? search.substring(1).split("&") : [];
-    params = params.filter(
-      (param) => !Object.values(STATUS_TO_QUERY_PARAM).includes(param)
-    );
-
-    if (newStatus && newStatus !== "all") {
-      params.push(STATUS_TO_QUERY_PARAM[newStatus]);
-    }
-
-    const queryStrings = params.length ? `?${params.join("&")}` : "";
-    DiscourseURL.routeTo(`${pathname}${queryStrings}${hash}`);
-
-    this.currentStatus = newStatus;
+    this.router.transitionTo({
+      queryParams: STATUS_TO_QUERY_PARAMS[newStatus],
+    });
   }
 
   <template>
