@@ -1,11 +1,11 @@
 {{#if this.shouldRender}}
   <li>
-    {{combo-box
-      content=this.statuses
-      value=this.currentStatus
-      valueAttribute="value"
-      onSelect=(action "changeStatus")
+    <ComboBox
+      @content={{this.statuses}}
+      @value={{this.currentStatus}}
+      @valueAttribute="value"
+      @onSelect={{this.changeStatus}}
       class="topic-unanswered-filter-dropdown"
-    }}
+    />
   </li>
 {{/if}}
