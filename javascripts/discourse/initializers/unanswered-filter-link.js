@@ -23,7 +23,7 @@ export default apiInitializer("0.11.1", (api) => {
 
     customFilter: (category, args, router) => {
       return (
-        exclusionList.indexOf(router.currentURL) < 0 &&
+        !exclusionList.includes(router.currentURL) &&
         (isGroupMember || !settings.limit_to_groups)
       );
     },
