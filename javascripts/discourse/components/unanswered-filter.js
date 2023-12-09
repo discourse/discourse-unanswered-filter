@@ -39,7 +39,7 @@ export default class UnansweredFilter extends Component {
   }
 
   getFilteredParams(queryStrings) {
-    let params = queryStrings.startsWith("?")
+    const params = queryStrings.startsWith("?")
       ? queryStrings.substring(1).split("&")
       : [];
     return params.filter(
@@ -62,7 +62,7 @@ export default class UnansweredFilter extends Component {
   }
 
   get shouldRender() {
-    let exclusions = settings.exclusions.split("|");
+    const exclusions = settings.exclusions.split("|");
     if (this.router.currentRouteName !== "discovery.categories") {
       return !exclusions.includes(this.router.currentURL) && this.isGroupMember;
     }
@@ -71,7 +71,7 @@ export default class UnansweredFilter extends Component {
   @action
   changeStatus(newStatus) {
     const { search, pathname, hash } = window.location;
-    let params = this.getFilteredParams(search);
+    const params = this.getFilteredParams(search);
     newStatus &&
       newStatus !== "all" &&
       params.push(this.statusToQueryParam[newStatus]);

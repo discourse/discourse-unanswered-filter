@@ -6,7 +6,7 @@ export default apiInitializer("0.11.1", (api) => {
     return;
   }
 
-  let exclusionList = settings.exclusions.split("|");
+  const exclusionList = settings.exclusions.split("|");
   const currentUser = api.getCurrentUser();
   const groupInclusions = settings.limit_to_groups
     .split("|")
@@ -29,7 +29,7 @@ export default apiInitializer("0.11.1", (api) => {
     },
 
     customHref: function (category, args, router) {
-      let routeName =
+      const routeName =
         args.filterType === "categories"
           ? "discovery.latest"
           : router.currentRouteName;
