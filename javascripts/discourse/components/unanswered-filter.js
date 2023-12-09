@@ -11,6 +11,7 @@ import I18n from "I18n";
 export default class UnansweredFilter extends Component {
   @service router;
   @service currentUser;
+
   @tracked currentStatus = null;
   @tracked statuses = ["all", "answered", "unanswered"].map((status) => ({
     name: I18n.t(themePrefix(`topic_answered_filter.${status}`)),

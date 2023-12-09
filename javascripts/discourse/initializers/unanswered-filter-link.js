@@ -20,12 +20,14 @@ export default apiInitializer("0.11.1", (api) => {
     name: "unanswered",
     displayName: I18n.t(themePrefix("unanswered.title")),
     title: I18n.t(themePrefix("unanswered.help")),
+
     customFilter: (category, args, router) => {
       return (
         exclusionList.indexOf(router.currentURL) < 0 &&
         (isGroupMember || !settings.limit_to_groups)
       );
     },
+
     customHref: function (category, args, router) {
       let routeName =
         args.filterType === "categories"
@@ -38,6 +40,7 @@ export default apiInitializer("0.11.1", (api) => {
 
       return router.urlFor(routeName, queryParams);
     },
+
     forceActive: (category, args) => {
       const queryParams = args.currentRouteQueryParams;
       return queryParams && queryParams["max_posts"] === "1";
