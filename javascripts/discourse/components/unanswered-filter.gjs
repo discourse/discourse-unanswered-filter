@@ -29,15 +29,6 @@ export default class UnansweredFilter extends Component {
         window.location.search.includes(STATUS_TO_QUERY_PARAM[key])
     ) || "all";
 
-  getFilteredParams(queryStrings) {
-    const params = queryStrings.startsWith("?")
-      ? queryStrings.substring(1).split("&")
-      : [];
-    return params.filter(
-      (param) => !Object.values(STATUS_TO_QUERY_PARAM).includes(param)
-    );
-  }
-
   get isGroupMember() {
     const groupInclusions = settings.limit_to_groups
       .split("|")
@@ -63,7 +54,11 @@ export default class UnansweredFilter extends Component {
   @action
   changeStatus(newStatus) {
     const { search, pathname, hash } = window.location;
-    const params = this.getFilteredParams(search);
+
+    let params = search.startsWith("?") ? search.substring(1).split("&") : [];
+    params = params.filter(
+      (param) => !Object.values(STATUS_TO_QUERY_PARAM).includes(param)
+    );
 
     if (newStatus && newStatus !== "all") {
       params.push(STATUS_TO_QUERY_PARAM[newStatus]);
