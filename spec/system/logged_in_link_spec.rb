@@ -1,7 +1,8 @@
-RSpec.describe "Unanswered Filter Component - logged-in link test", system: true do
-  let!(:theme) do 
-    upload_theme_component
-  end
+# frozen_string_literal: true
+
+RSpec.describe "Unanswered Filter Component - logged-in link test",
+               system: true do
+  let!(:theme) { upload_theme_component }
 
   fab!(:user)
   fab!(:category)
@@ -10,13 +11,13 @@ RSpec.describe "Unanswered Filter Component - logged-in link test", system: true
 
   it "user does not see the dropdown when filter_mode is set to link" do
     sign_in(user)
-    
+
     theme.update_setting(:filter_mode, "link")
     theme.save!
 
     visit("/c/#{category.id}")
 
-    expect(page).not_to have_css('.topic-unanswered-filter-dropdown')
+    expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
   end
 
   it "user can see and click the link" do
@@ -24,14 +25,14 @@ RSpec.describe "Unanswered Filter Component - logged-in link test", system: true
 
     theme.update_setting(:filter_mode, "link")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".nav-item_unanswered")
 
     find(".nav-item_unanswered").click
 
-    expect(page).to have_current_path "#{category.url}?max_posts=1"
+    expect(page).to have_current_path("#{category.url}?max_posts=1")
   end
 
   it "user does not see the link when on a route listed in the exclusions setting" do
@@ -40,7 +41,7 @@ RSpec.describe "Unanswered Filter Component - logged-in link test", system: true
     theme.update_setting(:filter_mode, "link")
     theme.update_setting(:exclusions, "/top")
     theme.save!
-    
+
     visit("/top")
 
     expect(page).not_to have_css(".nav-item_unanswered")
@@ -52,7 +53,7 @@ RSpec.describe "Unanswered Filter Component - logged-in link test", system: true
     theme.update_setting(:filter_mode, "link")
     theme.update_setting(:limit_to_groups, "#{group.id}")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".nav-item_unanswered")
@@ -65,5 +66,4 @@ RSpec.describe "Unanswered Filter Component - logged-in link test", system: true
 
     expect(page).not_to have_css(".nav-item_unanswered")
   end
-
 end

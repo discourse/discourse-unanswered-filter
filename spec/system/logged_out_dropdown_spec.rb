@@ -1,24 +1,25 @@
-RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: true do
-  let!(:theme) do 
-    upload_theme_component
-  end
+# frozen_string_literal: true
+
+RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
+               system: true do
+  let!(:theme) { upload_theme_component }
 
   fab!(:category)
   fab!(:group)
 
-  it "anon does not see the link when filter_mode is set to dropdown" do    
+  it "anon does not see the link when filter_mode is set to dropdown" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
     visit("/c/#{category.id}")
 
-    expect(page).not_to have_css('.nav-item_unanswered')
+    expect(page).not_to have_css(".nav-item_unanswered")
   end
 
   it "anon can see and click the dropdown" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
@@ -26,29 +27,33 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     find(".topic-unanswered-filter-dropdown").click
     find("[data-name='unanswered']").click
 
-    expect(page).to have_current_path "#{category.url}?max_posts=1"
+    expect(page).to have_current_path("#{category.url}?max_posts=1")
   end
 
   it "dropdown value changes based on URL" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
-    
+
     visit("/c/#{category.id}?min_posts=2")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
-    expect(find(".topic-unanswered-filter-dropdown .selected-name")).to have_content("answered")
+    expect(
+      find(".topic-unanswered-filter-dropdown .selected-name")
+    ).to have_content("answered")
 
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
-    expect(find(".topic-unanswered-filter-dropdown .selected-name")).to have_content("any status")
+    expect(
+      find(".topic-unanswered-filter-dropdown .selected-name")
+    ).to have_content("any status")
   end
 
   it "anon does not see the dropdown when on a route listed in the exclusions setting" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.update_setting(:exclusions, "/top")
     theme.save!
-    
+
     visit("/top")
 
     expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
@@ -58,7 +63,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     theme.update_setting(:filter_mode, "dropdown")
     theme.update_setting(:limit_to_groups, "#{group.id}")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).not_to have_css(".topic-unanswered-filter-dropdown")

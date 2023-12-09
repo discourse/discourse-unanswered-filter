@@ -1,7 +1,8 @@
-RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: true do
-  let!(:theme) do 
-    upload_theme_component
-  end
+# frozen_string_literal: true
+
+RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
+               system: true do
+  let!(:theme) { upload_theme_component }
 
   fab!(:user)
   fab!(:category)
@@ -10,13 +11,13 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
 
   it "user does not see the link when filter_mode is set to dropdown" do
     sign_in(user)
-    
+
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
     visit("/c/#{category.id}")
 
-    expect(page).not_to have_css('.nav-item_unanswered')
+    expect(page).not_to have_css(".nav-item_unanswered")
   end
 
   it "user can see and click the dropdown" do
@@ -24,7 +25,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
 
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
@@ -32,7 +33,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     find(".topic-unanswered-filter-dropdown").click
     find("[data-name='unanswered']").click
 
-    expect(page).to have_current_path "#{category.url}?max_posts=1"
+    expect(page).to have_current_path("#{category.url}?max_posts=1")
   end
 
   it "user does not see the dropdown when on a route listed in the exclusions setting" do
@@ -41,7 +42,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     theme.update_setting(:filter_mode, "dropdown")
     theme.update_setting(:exclusions, "/top")
     theme.save!
-    
+
     visit("/top")
 
     expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
@@ -53,7 +54,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     theme.update_setting(:filter_mode, "dropdown")
     theme.update_setting(:limit_to_groups, "#{group.id}")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
