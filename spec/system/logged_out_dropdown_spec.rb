@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
+RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
                system: true do
   let!(:theme) { upload_theme_component }
 
