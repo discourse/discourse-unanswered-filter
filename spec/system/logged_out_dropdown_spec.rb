@@ -35,9 +35,11 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
     theme.save!
 
     puts theme.build_settings_hash.inspect
+    puts "/c/#{category.id}?min_posts=2"
 
     visit("/c/#{category.id}?min_posts=2")
 
+    expect(page).to have_current_path("#{category.url}?min_posts=2")
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
     expect(
       find(".topic-unanswered-filter-dropdown .selected-name")
@@ -45,6 +47,7 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
 
     visit("/c/#{category.id}")
 
+    expect(page).to have_current_path(category.url)
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
     expect(
       find(".topic-unanswered-filter-dropdown .selected-name")
