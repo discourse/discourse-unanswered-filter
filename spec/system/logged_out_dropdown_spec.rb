@@ -11,7 +11,7 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_no_css(".nav-item_unanswered")
   end
@@ -20,7 +20,7 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
 
@@ -34,7 +34,7 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
-    visit("/c/#{category.id}?min_posts=2")
+    visit("#{category.url}?min_posts=2")
 
     expect(page).to have_current_path("#{category.url}?min_posts=2")
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
@@ -42,7 +42,7 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
       find(".topic-unanswered-filter-dropdown .selected-name")
     ).to have_content("answered")
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_current_path(category.url)
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
@@ -66,7 +66,7 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
     theme.update_setting(:limit_to_groups, "#{group.id}")
     theme.save!
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_no_css(".topic-unanswered-filter-dropdown")
   end

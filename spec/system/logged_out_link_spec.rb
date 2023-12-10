@@ -11,7 +11,7 @@ RSpec.describe "Unanswered Filter Component - logged-out link test",
     theme.update_setting(:filter_mode, "link")
     theme.save!
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_no_css(".topic-unanswered-filter-dropdown")
   end
@@ -20,7 +20,7 @@ RSpec.describe "Unanswered Filter Component - logged-out link test",
     theme.update_setting(:filter_mode, "link")
     theme.save!
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_css(".nav-item_unanswered")
 
@@ -44,7 +44,7 @@ RSpec.describe "Unanswered Filter Component - logged-out link test",
     theme.update_setting(:limit_to_groups, "#{group.id}")
     theme.save!
 
-    visit("/c/#{category.id}")
+    visit(category.url)
 
     expect(page).to have_no_css(".nav-item_unanswered")
   end
