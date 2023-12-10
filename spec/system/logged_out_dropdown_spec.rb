@@ -34,9 +34,6 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
-    puts theme.build_settings_hash.inspect
-    puts "/c/#{category.id}?min_posts=2"
-
     visit("/c/#{category.id}?min_posts=2")
 
     expect(page).to have_current_path("#{category.url}?min_posts=2")
