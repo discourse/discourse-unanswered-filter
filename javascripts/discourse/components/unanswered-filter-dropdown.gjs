@@ -10,7 +10,7 @@ const STATUS_TO_QUERY_PARAMS = {
   all: { max_posts: undefined, min_posts: undefined },
 };
 
-export default class UnansweredFilter extends Component {
+export default class UnansweredFilterDropdown extends Component {
   @service router;
   @service currentUser;
 
