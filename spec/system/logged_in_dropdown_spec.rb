@@ -56,7 +56,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test",
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
 
     theme.update_setting(:filter_mode, "dropdown")
-    theme.update_setting(:limit_to_groups, "42")
+    theme.update_setting(:limit_to_groups, "#{group.id + 1}")
     theme.save!
 
     visit("/c/#{category.id}")

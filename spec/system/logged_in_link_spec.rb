@@ -54,7 +54,7 @@ RSpec.describe "Unanswered Filter Component - logged-in link test",
     expect(page).to have_css(".nav-item_unanswered")
 
     theme.update_setting(:filter_mode, "link")
-    theme.update_setting(:limit_to_groups, "99")
+    theme.update_setting(:limit_to_groups, "#{group.id + 1}")
     theme.save!
 
     visit("/c/#{category.id}")
