@@ -1,24 +1,22 @@
-RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: true do
-  let!(:theme) do 
-    upload_theme_component
-  end
+RSpec.describe "Unanswered Filter Component - logged-out dropdown test", system: true do
+  let!(:theme) { upload_theme_component }
 
   fab!(:category)
   fab!(:group)
 
-  it "anon does not see the link when filter_mode is set to dropdown" do    
+  it "anon does not see the link when filter_mode is set to dropdown" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
 
     visit("/c/#{category.id}")
 
-    expect(page).not_to have_css('.nav-item_unanswered')
+    expect(page).not_to have_css(".nav-item_unanswered")
   end
 
   it "anon can see and click the dropdown" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
@@ -32,7 +30,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
   it "dropdown value changes based on URL" do
     theme.update_setting(:filter_mode, "dropdown")
     theme.save!
-    
+
     visit("/c/#{category.id}?min_posts=2")
 
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
@@ -48,7 +46,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     theme.update_setting(:filter_mode, "dropdown")
     theme.update_setting(:exclusions, "/top")
     theme.save!
-    
+
     visit("/top")
 
     expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
@@ -58,7 +56,7 @@ RSpec.describe "Unanswered Filter Component - logged-in dropdown test", system: 
     theme.update_setting(:filter_mode, "dropdown")
     theme.update_setting(:limit_to_groups, "#{group.id}")
     theme.save!
-    
+
     visit("/c/#{category.id}")
 
     expect(page).not_to have_css(".topic-unanswered-filter-dropdown")
