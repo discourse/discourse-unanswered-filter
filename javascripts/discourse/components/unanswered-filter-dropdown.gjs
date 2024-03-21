@@ -47,6 +47,7 @@ export default class UnansweredFilterDropdown extends Component {
 
   get shouldRender() {
     return (
+      this.router.currentRouteName !== "editCategory.tabs" &&
       this.router.currentRouteName !== "discovery.categories" &&
       !settings.exclusions.split("|").includes(this.router.currentURL) &&
       this.isGroupMember
