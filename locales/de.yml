@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 de:
+  topic_answered_filter:
+    all: "beliebiger Status"
+    unanswered: "unbeantwortet"
+    answered: "beantwortet"
+  unanswered:
+    title: "Unbeantwortet"
+    help: "Themen, die noch nicht beantwortet wurden"
+  theme_metadata:
+    settings:
+      limit_to_groups: Filter nur für Mitglieder dieser Gruppen anzeigen
