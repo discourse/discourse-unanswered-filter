@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 he:
+  topic_answered_filter:
+    all: "כל מצב שהוא"
+    unanswered: "ללא מענה"
+    answered: "נענה"
+  unanswered:
+    title: "ללא מענה"
+    help: "נושאים שלא זכו למענה"
+  theme_metadata:
+    settings:
+      limit_to_groups: להציג את המסנן רק לחברי הקבוצות האלה
