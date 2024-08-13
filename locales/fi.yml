@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 fi:
+  topic_answered_filter:
+    all: "mikä tahansa tila"
+    unanswered: "vastaamatta"
+    answered: "vastattu"
+  unanswered:
+    title: "Vastaamatta"
+    help: "Ketjut, joihin ei ole vastattu"
+  theme_metadata:
+    settings:
+      limit_to_groups: näytä suodatin vain näiden ryhmien jäsenille
