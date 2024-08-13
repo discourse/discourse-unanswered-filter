@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 ja:
+  topic_answered_filter:
+    all: "すべてのステータス"
+    unanswered: "未回答"
+    answered: "回答済み"
+  unanswered:
+    title: "未回答"
+    help: "回答されていないトピック"
+  theme_metadata:
+    settings:
+      limit_to_groups: これらのグループのメンバーのみにフィルターを表示する

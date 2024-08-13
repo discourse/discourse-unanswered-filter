@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 zh_CN:
+  topic_answered_filter:
+    all: "任何状态"
+    unanswered: "未回答"
+    answered: "已回答"
+  unanswered:
+    title: "未回答"
+    help: "尚未回答的话题"
+  theme_metadata:
+    settings:
+      limit_to_groups: 仅为这些群组的成员显示筛选器

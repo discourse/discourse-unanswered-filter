@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 es:
+  topic_answered_filter:
+    all: "cualquier estado"
+    unanswered: "sin respuesta"
+    answered: "respondido"
+  unanswered:
+    title: "Sin respuesta"
+    help: "Temas sin respuesta"
+  theme_metadata:
+    settings:
+      limit_to_groups: mostrar el filtro solo a los miembros de estos grupos
