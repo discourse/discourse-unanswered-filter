@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 ar:
+  topic_answered_filter:
+    all: "أي حالة"
+    unanswered: "لم تتم الإجابة عليها"
+    answered: "تمت الإجابة عليها"
+  unanswered:
+    title: "لم تتم الإجابة عليها"
+    help: "الموضوعات التي لم تتم الإجابة عليها"
+  theme_metadata:
+    settings:
+      limit_to_groups: إظهار عامل التصفية لأعضاء هذه المجموعات فقط
