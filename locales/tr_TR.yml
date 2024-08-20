@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 tr_TR:
+  topic_answered_filter:
+    all: "herhangi bir durum"
+    unanswered: "cevapsız"
+    answered: "cevaplandı"
+  unanswered:
+    title: "Cevapsız"
+    help: "Cevaplanmamış konular"
+  theme_metadata:
+    settings:
+      limit_to_groups: yalnızca bu grupların üyeleri için filtreyi göster
