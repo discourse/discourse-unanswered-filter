@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 ru:
+  topic_answered_filter:
+    all: "любой статус"
+    unanswered: "без ответа"
+    answered: "с ответом"
+  unanswered:
+    title: "Без ответа"
+    help: "Темы, на которые не были даны ответы"
+  theme_metadata:
+    settings:
+      limit_to_groups: показывать фильтр только для участников этих групп

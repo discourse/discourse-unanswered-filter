@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 pt_BR:
+  topic_answered_filter:
+    all: "qualquer status"
+    unanswered: "sem resposta"
+    answered: "com resposta"
+  unanswered:
+    title: "Sem resposta"
+    help: "Tópicos que estão sem resposta"
+  theme_metadata:
+    settings:
+      limit_to_groups: mostrar o filtro apenas para membros destes grupos
