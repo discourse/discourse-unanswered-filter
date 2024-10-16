@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
-               system: true do
+RSpec.describe "Unanswered Filter Component - logged-out in dropdown test", system: true do
   let!(:theme) { upload_theme_component }
 
   fab!(:category)
@@ -38,17 +37,13 @@ RSpec.describe "Unanswered Filter Component - logged-out in dropdown test",
 
     expect(page).to have_current_path("#{category.url}?min_posts=2")
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
-    expect(
-      find(".topic-unanswered-filter-dropdown .selected-name")
-    ).to have_content("answered")
+    expect(find(".topic-unanswered-filter-dropdown .selected-name")).to have_content("answered")
 
     visit(category.url)
 
     expect(page).to have_current_path(category.url)
     expect(page).to have_css(".topic-unanswered-filter-dropdown")
-    expect(
-      find(".topic-unanswered-filter-dropdown .selected-name")
-    ).to have_content("any status")
+    expect(find(".topic-unanswered-filter-dropdown .selected-name")).to have_content("any status")
   end
 
   it "anon does not see the dropdown when on a route listed in the exclusions setting" do
