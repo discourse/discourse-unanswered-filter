@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "Unanswered Filter Component - logged-out link test",
-               system: true do
+RSpec.describe "Unanswered Filter Component - logged-out link test", system: true do
   let!(:theme) { upload_theme_component }
 
   fab!(:category)
