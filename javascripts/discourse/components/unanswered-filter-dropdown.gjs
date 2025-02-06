@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import ComboBox from "select-kit/components/combo-box";
 
 const STATUS_TO_QUERY_PARAMS = {
@@ -15,7 +15,7 @@ export default class UnansweredFilterDropdown extends Component {
   @service currentUser;
 
   statuses = ["all", "answered", "unanswered"].map((status) => ({
-    name: I18n.t(themePrefix(`topic_answered_filter.${status}`)),
+    name: i18n(themePrefix(`topic_answered_filter.${status}`)),
     value: status,
   }));
 
