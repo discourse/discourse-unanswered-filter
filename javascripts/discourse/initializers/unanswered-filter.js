@@ -1,5 +1,5 @@
 import { apiInitializer } from "discourse/lib/api";
-import I18n from "discourse-i18n";
+import { i18n } from "discourse-i18n";
 import UnansweredFilterDropdown from "../components/unanswered-filter-dropdown";
 
 export default apiInitializer("0.11.1", (api) => {
@@ -20,8 +20,8 @@ export default apiInitializer("0.11.1", (api) => {
 
   api.addNavigationBarItem({
     name: "unanswered",
-    displayName: I18n.t(themePrefix("unanswered.title")),
-    title: I18n.t(themePrefix("unanswered.help")),
+    displayName: i18n(themePrefix("unanswered.title")),
+    title: i18n(themePrefix("unanswered.help")),
 
     customFilter: (category, args, router) => {
       return (
