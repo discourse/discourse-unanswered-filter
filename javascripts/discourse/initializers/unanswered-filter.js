@@ -2,7 +2,7 @@ import { apiInitializer } from "discourse/lib/api";
 import { i18n } from "discourse-i18n";
 import UnansweredFilterDropdown from "../components/unanswered-filter-dropdown";
 
-export default apiInitializer("0.11.1", (api) => {
+export default apiInitializer((api) => {
   if (settings.filter_mode === "dropdown") {
     api.renderInOutlet("bread-crumbs-right", UnansweredFilterDropdown);
     return;
