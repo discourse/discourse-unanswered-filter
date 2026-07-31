@@ -11,12 +11,6 @@ export default apiInitializer((api) => {
 
   const exclusionList = settings.exclusions.split("|");
 
-  // NOTE: The default for this setting was changed to "4|5" in the theme settings,
-  // since that is what now represents all anon + logged in users, so this fallback is
-  // for backwards compatibility.
-  const noLimitToGroups =
-    !settings.limit_to_groups || settings.limit_to_groups === "4|5";
-
   let isGroupMember = false;
   if (Object.hasOwn(settings, "user_in_limit_to_groups")) {
     isGroupMember = settings.user_in_limit_to_groups;
@@ -39,10 +33,21 @@ export default apiInitializer((api) => {
     title: i18n(themePrefix("unanswered.help")),
 
     customFilter: (category, args, router) => {
-      return (
-        !exclusionList.includes(router.currentURL) &&
-        (isGroupMember || noLimitToGroups)
-      );
+      if (Object.hasOwn(settings, "user_in_limit_to_groups")) {
+        return !exclusionList.includes(router.currentURL) && isGroupMember;
+      } else {
+        // NOTE: The default for this setting was changed to "4|5" in the theme settings,
+        // since that is what now represents all anon + logged in users, so this fallback is
+        // for backwards compatibility.
+        //
+        // settings.limit_to_groups is undefined if user_in_limit_to_groups is defined
+        const noLimitToGroups =
+          !settings.limit_to_groups || settings.limit_to_groups === "4|5";
+        return (
+          !exclusionList.includes(router.currentURL) &&
+          (isGroupMember || noLimitToGroups)
+        );
+      }
     },
 
     customHref: function (category, args, router) {
