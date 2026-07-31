@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { AUTO_GROUPS } from "discourse/lib/constants";
 import ComboBox from "discourse/select-kit/components/combo-box";
 import { i18n } from "discourse-i18n";
 
@@ -32,16 +33,28 @@ export default class UnansweredFilterDropdown extends Component {
   }
 
   get isGroupMember() {
+    if (Object.hasOwn(settings, "user_in_limit_to_groups")) {
+      return settings.user_in_limit_to_groups;
+    }
+
+    // TODO (martin) Remove this fallback after resolve_group_membership
+    // from core is available everywhere
     const groupInclusions = settings.limit_to_groups
       .split("|")
       .map((id) => parseInt(id, 10));
+
+    // NOTE: The default for this setting was changed to "4|5" in the theme settings,
+    // since that is what now represents all anon + logged in users, so this fallback is
+    // for backwards compatibility.
+    const noLimitToGroups =
+      !settings.limit_to_groups || settings.limit_to_groups === "4|5";
 
     return (
       this.currentUser?.groups?.some((group) =>
         groupInclusions.includes(group.id)
       ) ||
-      groupInclusions.includes(0) ||
-      !settings.limit_to_groups
+      groupInclusions.includes(AUTO_GROUPS.everyone.id) ||
+      noLimitToGroups
     );
   }
 
