@@ -15,9 +15,10 @@ exclusions:
       liking."
 
 limit_to_groups:
-  default: ""
+  default: "4|5"
   type: list
   list_type: group
+  resolve_group_membership: true
 
 filter_mode:
   type: enum

@@ -8,4 +8,4 @@ en:
     help: "Topics that have not been answered"
   theme_metadata:
     settings:
-      limit_to_groups: only show the filter for members of these groups
+      limit_to_groups: Only show the filter for members of these groups.

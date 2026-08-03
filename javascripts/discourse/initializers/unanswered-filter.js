@@ -1,4 +1,5 @@
 import { apiInitializer } from "discourse/lib/api";
+import { AUTO_GROUPS } from "discourse/lib/constants";
 import { i18n } from "discourse-i18n";
 import UnansweredFilterDropdown from "../components/unanswered-filter-dropdown";
 
@@ -9,14 +10,22 @@ export default apiInitializer((api) => {
   }
 
   const exclusionList = settings.exclusions.split("|");
-  const currentUser = api.getCurrentUser();
-  const groupInclusions = settings.limit_to_groups
-    .split("|")
-    .map((id) => parseInt(id, 10));
 
-  const isGroupMember =
-    currentUser?.groups?.some((group) => groupInclusions.includes(group.id)) ||
-    groupInclusions.includes(0);
+  let isGroupMember = false;
+  if (Object.hasOwn(settings, "user_in_limit_to_groups")) {
+    isGroupMember = settings.user_in_limit_to_groups;
+  } else {
+    const currentUser = api.getCurrentUser();
+    const groupInclusions = settings.limit_to_groups
+      .split("|")
+      .map((id) => parseInt(id, 10));
+    // TODO (martin) Remove this fallback after resolve_group_membership
+    // from core is available everywhere
+    isGroupMember =
+      currentUser?.groups?.some((group) =>
+        groupInclusions.includes(group.id)
+      ) || groupInclusions.includes(AUTO_GROUPS.everyone.id);
+  }
 
   api.addNavigationBarItem({
     name: "unanswered",
@@ -24,10 +33,21 @@ export default apiInitializer((api) => {
     title: i18n(themePrefix("unanswered.help")),
 
     customFilter: (category, args, router) => {
-      return (
-        !exclusionList.includes(router.currentURL) &&
-        (isGroupMember || !settings.limit_to_groups)
-      );
+      if (Object.hasOwn(settings, "user_in_limit_to_groups")) {
+        return !exclusionList.includes(router.currentURL) && isGroupMember;
+      } else {
+        // NOTE: The default for this setting was changed to "4|5" in the theme settings,
+        // since that is what now represents all anon + logged in users, so this fallback is
+        // for backwards compatibility.
+        //
+        // settings.limit_to_groups is undefined if user_in_limit_to_groups is defined
+        const noLimitToGroups =
+          !settings.limit_to_groups || settings.limit_to_groups === "4|5";
+        return (
+          !exclusionList.includes(router.currentURL) &&
+          (isGroupMember || noLimitToGroups)
+        );
+      }
     },
 
     customHref: function (category, args, router) {
