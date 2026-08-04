@@ -12,6 +12,3 @@ ru:
   unanswered:
     title: "Без ответа"
     help: "Темы, на которые не были даны ответы"
-  theme_metadata:
-    settings:
-      limit_to_groups: показывать фильтр только для участников этих групп

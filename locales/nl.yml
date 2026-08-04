@@ -12,6 +12,3 @@ nl:
   unanswered:
     title: "Onbeantwoord"
     help: "Topics die niet zijn beantwoord"
-  theme_metadata:
-    settings:
-      limit_to_groups: geef het filter alleen weer voor leden van deze groepen

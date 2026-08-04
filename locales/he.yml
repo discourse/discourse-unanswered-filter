@@ -12,6 +12,3 @@ he:
   unanswered:
     title: "ללא מענה"
     help: "נושאים שלא זכו למענה"
-  theme_metadata:
-    settings:
-      limit_to_groups: להציג את המסנן רק לחברי הקבוצות האלה

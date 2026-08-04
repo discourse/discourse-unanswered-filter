@@ -12,6 +12,3 @@ fr:
   unanswered:
     title: "Sans réponse"
     help: "Sujets qui n'ont pas reçu de réponse"
-  theme_metadata:
-    settings:
-      limit_to_groups: afficher uniquement le filtre pour les membres de ces groupes
