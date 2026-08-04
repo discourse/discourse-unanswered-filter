@@ -12,6 +12,3 @@ es:
   unanswered:
     title: "Sin respuesta"
     help: "Temas sin respuesta"
-  theme_metadata:
-    settings:
-      limit_to_groups: mostrar el filtro solo a los miembros de estos grupos

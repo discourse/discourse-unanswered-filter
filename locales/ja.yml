@@ -12,6 +12,3 @@ ja:
   unanswered:
     title: "未回答"
     help: "回答されていないトピック"
-  theme_metadata:
-    settings:
-      limit_to_groups: これらのグループのメンバーのみにフィルターを表示する

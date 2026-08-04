@@ -12,6 +12,3 @@ tr_TR:
   unanswered:
     title: "Cevapsız"
     help: "Cevaplanmamış konular"
-  theme_metadata:
-    settings:
-      limit_to_groups: yalnızca bu grupların üyeleri için filtreyi göster

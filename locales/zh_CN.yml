@@ -12,6 +12,3 @@ zh_CN:
   unanswered:
     title: "未回答"
     help: "尚未回答的话题"
-  theme_metadata:
-    settings:
-      limit_to_groups: 仅为这些群组的成员显示筛选器

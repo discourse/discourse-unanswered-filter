@@ -12,6 +12,3 @@ ar:
   unanswered:
     title: "لم تتم الإجابة عليها"
     help: "الموضوعات التي لم تتم الإجابة عليها"
-  theme_metadata:
-    settings:
-      limit_to_groups: إظهار عامل التصفية لأعضاء هذه المجموعات فقط
